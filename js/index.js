@@ -25,20 +25,39 @@ function displayData(data)
         column[1].innerHTML="";
         column[2].innerHTML="";
         column[3].innerHTML="";
+        let index=0;
         data.forEach((item)=>{
+            if(!(item.cover==undefined || item.cover.length==0))
+            {
+           
             let gallery_box = document.createElement("div");
             gallery_box.setAttribute("class","gallery_box");
     
             let image_container = document.createElement("div");
-            let image1 = document.createElement("img");
-            image1.height="100%";
-            image1.width="100%";
+            
             if(item.images!=undefined && item.images.length>0)
             {
-                image1.setAttribute("src",item.images[0].gifv)
+                if(item.images[0].type!='video/mp4')
+                {
+                    let image = document.createElement("img");
+                    image.setAttribute("src","https://i.imgur.com/"+item.cover+".webp?maxwidth=520&shape=thumb&fidelity=high")
+                    image_container.append(image);
+                }
+                else if(item.images[0].type=='video/mp4')
+                {
+                    let video = document.createElement("video");
+                    video.autoplay=true;
+                    video.muted=true;
+                    video.style.height="100%";
+                    video.style.width="100%"
+                    let option = document.createElement("source");
+                    option.setAttribute("src",item.images[0].mp4);
+                    video.append(option);
+                    image_container.append(video);
+                }
 
             }
-            image_container.append(image1);
+           
     
             let box_content = document.createElement("div");
             let title = document.createElement("h4");
@@ -54,7 +73,12 @@ function displayData(data)
             box_content.append(title,button_container);
             
             gallery_box.append(image_container,box_content);
-            column[Math.floor(Math.random()*4)].append(gallery_box);
+            column[index++].append(gallery_box);
+            if(index==4)
+            {
+                index=0;
+            }
+        }
         })
 
     }

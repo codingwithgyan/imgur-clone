@@ -44,6 +44,7 @@ body {
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   color: white;
+  cursor: pointer;
 }
 .gallery_box > div:nth-child(1) {
   height: 80%;
@@ -54,6 +55,9 @@ body {
   width: 94%;
   padding: 0px 3% 3% 3%;
 }
+.gallery_box h4 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 .gallery_box h4 ~ div {
   display: flex;
   flex-direction: row;
@@ -61,5 +65,6 @@ body {
 }
 
 .gallery_box img {
+  max-height: 50vh;
   width: 100%;
 }
