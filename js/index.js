@@ -7,11 +7,12 @@ window.addEventListener("load",()=>{
 
 async function getData()
 {
-    let res = await fetch(`https://api.imgur.com/3/gallery/top/viral/all/1`,{
+    let res = await fetch(`https://api.imgur.com/3/gallery/top/viral/all/1?album_previews=true`,{
         method:"GET",
         headers:{'Authorization':`Client-ID ${CLIENT_ID}`}
     })
     let {data} = await res.json();
+    console.log(data);
     displayData(data);
 }
 
@@ -20,14 +21,24 @@ function displayData(data)
     if(data!=undefined)
     {
         let column = document.getElementsByClassName("col");
+        column[0].innerHTML="";
+        column[1].innerHTML="";
+        column[2].innerHTML="";
+        column[3].innerHTML="";
         data.forEach((item)=>{
             let gallery_box = document.createElement("div");
             gallery_box.setAttribute("class","gallery_box");
     
-            let image_container = document.getElementById("div");
-            let img = document.createElement("img");
-            img.setAttribute("src",item.images[0].gifv)
-            image_container.append(img);
+            let image_container = document.createElement("div");
+            let image1 = document.createElement("img");
+            image1.height="100%";
+            image1.width="100%";
+            if(item.images!=undefined && item.images.length>0)
+            {
+                image1.setAttribute("src",item.images[0].gifv)
+
+            }
+            image_container.append(image1);
     
             let box_content = document.createElement("div");
             let title = document.createElement("h4");
@@ -43,9 +54,7 @@ function displayData(data)
             box_content.append(title,button_container);
             
             gallery_box.append(image_container,box_content);
-            let index = Math.floor(Math.random()*5)
-            console.log(index);
-            column[index].append(gallery_box);
+            column[Math.floor(Math.random()*4)].append(gallery_box);
         })
 
     }
