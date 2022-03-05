@@ -8,8 +8,8 @@ window.addEventListener("load",()=>{
 async function getToken()
 {
     let res = await fetch(`https://api.imgur.com/3/gallery/top/viral/all/1`,{
-        method:"get",
-        Authorization:`Client-ID ${CLIENT_ID}`
+        method:"GET",
+        headers:{'Authorization':`Client-ID ${CLIENT_ID}`}
     })
     let data = await res.json();
     console.log(data);
